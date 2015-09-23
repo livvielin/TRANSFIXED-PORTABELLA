@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Tempest?
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Down?
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  This product helps people plan impromptu events with their friends.
 
 ## Problem ##
   > Describe the problem your product solves.
+  Usually, organizing and scheduling events is difficult and involves a lot of back and forth.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  By providing a simple "yes" or "no" mass invite system, we simplify real-time meetups amongst friends.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  It's kind of cool, I guess.
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Download the app.  Watch out, Yo!
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  I used to have a friends problem.  Now I have an alcohol problem.  Thanks "Tempest?"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Check out our app on the App Store or on Google Play!

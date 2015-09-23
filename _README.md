@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Alex
+  - __Scrum Master__: Juana
+  - __Development Team Members__: Alex, Juana, Livvie
 
 ## Table of Contents
 
