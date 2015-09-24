@@ -1,0 +1,16 @@
+{
+  "name": "Tempest",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+
+  "author": "",
+  "license": "MIT",
+
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5",
+    "mongoose": "^4.1.0",
+    "request": "^2.36.0"
+  }
+}
