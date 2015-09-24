@@ -1,14 +1,9 @@
 angular.module('starter.friendsController', ['ionic', 'starter.services'])
 
-.controller('FriendsController', function ($scope, Friends) {
+.controller('FriendsController', function ($scope, Friends, User) {
   $scope.friends = Friends;
 
   $scope.addFriend = function() {
-    var friendName = prompt('What is your friend\'s name?');
-    if (friendName) {
-      $scope.friends.$add({
-        'friend': friendName
-      });
-    }
+    User.addFriend($scope.friends);
   };
 });
