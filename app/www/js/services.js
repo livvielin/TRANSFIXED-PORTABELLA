@@ -19,4 +19,11 @@ angular.module('starter.services', [])
   return {
     addFriend: addFriend
   };
+})
+
+.factory('Message', function () {
+  var message = 'hello';
+  return {
+    message: message
+  };
 });
