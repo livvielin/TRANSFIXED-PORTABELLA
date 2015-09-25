@@ -11,7 +11,7 @@ angular.module('starter.services', [])
     var friendName = prompt('What is your friend\'s name?');
     if (friendName) {
       friends.$add({
-        'friend': friendName
+        'name': friendName
       });
     }
   };
@@ -21,7 +21,12 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Message', function () {
+.factory('Auth', function($firebaseAuth) {
+  var usersRef = new Firebase('https://yotempest.firebaseio.com/auth');
+  return $firebaseAuth(usersRef);
+})
+
+.factory('Message', function() {
   var message = 'hello';
   return {
     message: message
