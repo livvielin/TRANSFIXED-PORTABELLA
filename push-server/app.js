@@ -15,7 +15,7 @@ app.post('/notifications', function(req, res) {
 
 	var headers = {
 	    'Content-Type': 'application/json',
-	    'X-Ionic-Application-Id': '731ce131',
+	    'X-Ionic-Application-Id': 'APP ID',
 	    'Authorization': 'basic ' + 'API KEY HERE'
 	};
 	
@@ -45,5 +45,5 @@ app.listen(port);
 
 
 /*
-curl -u 4a45e2a3a08dcd6a09d6470c0d1bcb3821bb69000ff420e6: -H "Content-Type: application/json" -H "X-Ionic-Application-Id: 731ce131" https://push.ionic.io/api/v1/push -d '{"tokens":["DEV-664d6502-dbad-42cd-8068-67eb0d5b8878"],"notification":{"alert":"I come from planet Ion."}}'
+curl -u SECRET_API_KEY: -H "Content-Type: application/json" -H "X-Ionic-Application-Id: APP_ID" https://push.ionic.io/api/v1/push -d '{"tokens":["DEVICE-TOKEN"],"notification":{"alert":"I come from planet Ion."}}'
 */
