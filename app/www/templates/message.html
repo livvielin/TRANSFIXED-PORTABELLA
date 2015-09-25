@@ -1,12 +1,10 @@
 <ion-view view-title="Message" class="message-page">
   <ion-content>
   
-  <form ng-submit="sendMessage()">
-    <input ng-model="$parent.message" type="text" placeholder="Message" />
+  <form name="messageForm" ng-submit="sendMessage()">
+    <input ng-model="$parent.message" type="text" placeholder="Message" ng-maxlength="15" required>
 
-    <button type="submit" class="button button-clear ion-android-send iconsend"></button>
-
-    <p>{{ message }}</p>
+    <button ng-disabled="messageForm.$invalid" type="submit" class="button button-clear ion-android-send iconsend"></button>
   </form>
 
   </ion-content>
