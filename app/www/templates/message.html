@@ -1,0 +1,14 @@
+<ion-view view-title="Message" class="message-page">
+  <ion-content>
+  
+  <form ng-submit="sendMessage()">
+    <input ng-model="$parent.message" type="text" placeholder="Message" />
+
+    <button type="submit" class="button button-clear ion-android-send iconsend"></button>
+
+    <p>{{ message }}</p>
+  </form>
+
+  </ion-content>
+</ion-view>
+
