@@ -24,4 +24,11 @@ angular.module('starter.services', [])
 .factory('Auth', function($firebaseAuth) {
   var usersRef = new Firebase('https://yotempest.firebaseio.com/auth');
   return $firebaseAuth(usersRef);
+})
+
+.factory('Message', function() {
+  var message = 'hello';
+  return {
+    message: message
+  };
 });
