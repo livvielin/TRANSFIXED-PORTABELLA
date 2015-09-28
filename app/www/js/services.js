@@ -1,8 +1,12 @@
 angular.module('starter.services', [])
 
-.factory('Friends', function($firebaseArray) {
-  var friendsRef = new Firebase('https://yotempest.firebaseio.com/friends');
-  return $firebaseArray(friendsRef);
+.factory('Database', function() {
+  var ref = new Firebase('https://yotempest.firebaseio.com');
+  var db = $firebase(ref);
+  return {
+    ref: ref,
+    db: db
+  };
 })
 
 .factory('User', function() {
@@ -21,12 +25,9 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Auth', function($firebaseAuth) {
-  // var userRef = new Firebase('https://yotempest.firebaseio.com/auth');
-  // return $firebaseAuth(userRef);
-  var ref = new Firebase('https://yotempest.firebaseio.com/auth');
+.factory('Auth', function($firebaseAuth, Database) {
   var createUser = function(email, password) {
-    ref.createUser({
+    Database.ref.createUser({
         email: email,
         password: password
       }, function(error, userData) {
@@ -47,6 +48,9 @@ angular.module('starter.services', [])
     });
   };
 
+  var login = function() {
+    //authentica user
+  };
   return {
     createUser: createUser
   };

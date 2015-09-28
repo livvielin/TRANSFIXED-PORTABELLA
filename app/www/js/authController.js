@@ -84,18 +84,8 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
         $log.info(notification);
         return true;
       }
-    })
+    });
   };
 
 });
 
-// This method is called each time authentication state changes
-
-// Auth.$onAuth(function(authData) {
-//   if (authData === null) {
-//     console.log('Not logged in yet');
-//   } else {
-//     console.log('Logged in as', authData.uid);
-//   }
-//   $scope.authData = authData; // This will display the user's name in our view
-// });
