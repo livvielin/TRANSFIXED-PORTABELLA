@@ -1,8 +1,10 @@
 angular.module('starter.services', [])
 
-.factory('Friends', function($firebaseArray) {
-  var friendsRef = new Firebase('https://yotempest.firebaseio.com/friends');
-  return $firebaseArray(friendsRef);
+.factory('Database', function() {
+  var ref = new Firebase('https://yotempest.firebaseio.com');
+  return {
+    ref: ref
+  };
 })
 
 .factory('User', function() {
@@ -21,9 +23,48 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Auth', function($firebaseAuth) {
-  var usersRef = new Firebase('https://yotempest.firebaseio.com/auth');
-  return $firebaseAuth(usersRef);
+.factory('Auth', function($firebaseAuth, Database) {
+  var createUser = function(email, password) {
+    Database.ref.createUser({
+        email: email,
+        password: password
+      }, function(error, userData) {
+      if (error) {
+        switch (error.code) {
+          case 'EMAIL_TAKEN':
+            console.log('The new user account cannot be created because the email is already in use.');
+            break;
+          case 'INVALID_EMAIL':
+            console.log('The specified email is not a valid email.');
+            break;
+          default:
+            console.log('Error creating user:', error);
+        }
+      } else {
+        console.log('Successfully created user account with uid:', userData.uid);
+      }
+    });
+  };
+
+  var login = function(email, password, $state) {
+    Database.ref.authWithPassword({
+      email: email,
+      password: password
+    }, function(error, authData) {
+      if (error) {
+        console.log('Login Failed!', error);
+      } else {
+        console.log('Authenticated successfully with payload:', authData);
+        //redirects to messages
+        $state.go('message');
+      }
+    });
+  };
+
+  return {
+    createUser: createUser,
+    login: login
+  };
 })
 
 .factory('Message', function() {
