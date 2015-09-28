@@ -1,19 +1,10 @@
 angular.module('starter.authController', ['ionic', 'starter.services'])
 
 .controller('AuthController', function ($scope, Auth, $rootScope, $location, $state) {
-  //UI properties
-  $scope.ui = {
-    showCreate: false
-  };
-  //form properties
+
   $scope.inputs = {
     email: null,
     password: null
-  };
-
-  //Will show create user fields when create account button is clicked
-  $scope.toggleCreate = function() {
-    $scope.ui.showCreate = !$scope.ui.showCreate;
   };
 
   $scope.createUser = function() {
