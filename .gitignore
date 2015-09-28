@@ -30,3 +30,6 @@ bower_components
 
 # Push Notification Server
 push-server/**
+
+# Client-side Config
+app/.io-config.json
