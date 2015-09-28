@@ -22,8 +22,34 @@ angular.module('starter.services', [])
 })
 
 .factory('Auth', function($firebaseAuth) {
-  var usersRef = new Firebase('https://yotempest.firebaseio.com/auth');
-  return $firebaseAuth(usersRef);
+  // var userRef = new Firebase('https://yotempest.firebaseio.com/auth');
+  // return $firebaseAuth(userRef);
+  var ref = new Firebase('https://yotempest.firebaseio.com/auth');
+  var createUser = function(email, password) {
+    ref.createUser({
+        email: email,
+        password: password
+      }, function(error, userData) {
+      if (error) {
+        switch (error.code) {
+          case 'EMAIL_TAKEN':
+            console.log('The new user account cannot be created because the email is already in use.');
+            break;
+          case 'INVALID_EMAIL':
+            console.log('The specified email is not a valid email.');
+            break;
+          default:
+            console.log('Error creating user:', error);
+        }
+      } else {
+        console.log('Successfully created user account with uid:', userData.uid);
+      }
+    });
+  };
+
+  return {
+    createUser: createUser
+  };
 })
 
 .factory('Message', function() {
