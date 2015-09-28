@@ -1,7 +1,12 @@
 angular.module('starter.authController', ['ionic', 'starter.services'])
 
-.controller('AuthController', function ($scope, Auth, $rootScope, $location, $state) {
 
+.controller('AuthController', function ($scope, Auth, $rootScope, $location, $state, $log, $ionicUser, $ionicPush) {
+  //UI properties
+  $scope.ui = {
+    showCreate: false
+  };
+  //form properties
   $scope.inputs = {
     email: null,
     password: null
@@ -32,7 +37,7 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
       //if the user doesn't have an id, generate a new one
       //TODO: use facebook id's as the user_id?
       user.user_id = $ionicUser.generateGUID();
-    };
+    }
     //TODO: INTERGRATE WITH LOGIN - Need details from other Auth here
     angular.extend(user, {
       name: "PLACEHOLDER"
@@ -43,7 +48,7 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
       //Return the code for testing purposes
       alert('Identified user' + user.name + '\n ID' + user.user_id);
     });
-  };  
+  };
 
   $scope.pushRegister = function () {
     $log.info('Ionic Push: Registering user');
