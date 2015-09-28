@@ -1,6 +1,6 @@
 angular.module('starter.authController', ['ionic', 'starter.services'])
 
-.controller('AuthController', function ($scope, Auth, $rootScope, $ionicUser, $ionicPush, $log) {
+.controller('AuthController', function ($scope, Auth, $rootScope, $location, $state) {
   //UI properties
   $scope.ui = {
     showCreate: false
@@ -21,24 +21,7 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   $scope.login = function() {
-    //can use pop-up instead of redirect for emulator purposes
-    // Auth.$authWithOAuthRedirect('facebook').then(function(authData) {
-    //   console.log(authData);
-    //   // Auth.$createUser
-    //   //
-    //   // User successfully logged in
-    // }).catch(function(error) {
-    //   console.log('error');
-    //   if (error.code === 'TRANSPORT_UNAVAILABLE') {
-    //     Auth.$authWithOAuthPopup('facebook').then(function(authData) {
-    //       // User successfully logged in. We can log to the console since we’re using a popup here
-    //       console.log(authData);
-    //     });
-    //   } else {
-    //     // Another error occurred
-    //     console.log(error);
-    //   }
-    // });
+    Auth.login($scope.inputs.email, $scope.inputs.password, $state);
   };
 
   //*** PUSH NOTIFICATION AUTH ***

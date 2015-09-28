@@ -1,28 +1,29 @@
 <ion-view view-title="yotempest?" class="login">
 <ion-content>
 <div ng-hide="authData">
-  <button class="button button-full" ng-click="login()">
-    Log In
-  </button>
-  <button class="button button-full" ng-click="toggleCreate()">
-    Create Account
-  </button>
-</div>
-<!-- create account -->
-<div ng-show="ui.showCreate">
-  <div class="list">
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Email</span>
-    <input type="text" placeholder="Email" ng-model="inputs.email">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Password</span>
-    <input type="text" placeholder="Password" ng-model="inputs.password">
-  </label>
-  <button class="button button-positive" ng-click="createUser()">
-  Submit
-  </button>
-</div>
+  <!-- create account -->
+  <div>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Email</span>
+        <input type="text" placeholder="Email" ng-model="inputs.email">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Password</span>
+        <input type="text" placeholder="Password" ng-model="inputs.password">
+      </label>
+    </div>
+  </div>
+  <div style="margin: 10px 5%">
+    <div class="button-bar">
+      <button class="button button-positive" ng-click="login()">
+        Log In
+      </button>
+      <button class="button button-positive" ng-click="createUser()">
+        Create Account
+      </button>
+    </div>
+  </div>
 </div>
 <!-- <div class="card" ng-show="authData">
   <div class="item item-text-wrap">

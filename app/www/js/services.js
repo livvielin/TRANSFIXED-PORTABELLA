@@ -2,10 +2,8 @@ angular.module('starter.services', [])
 
 .factory('Database', function() {
   var ref = new Firebase('https://yotempest.firebaseio.com');
-  var db = $firebase(ref);
   return {
-    ref: ref,
-    db: db
+    ref: ref
   };
 })
 
@@ -48,11 +46,24 @@ angular.module('starter.services', [])
     });
   };
 
-  var login = function() {
-    //authentica user
+  var login = function(email, password, $state) {
+    Database.ref.authWithPassword({
+      email: email,
+      password: password
+    }, function(error, authData) {
+      if (error) {
+        console.log('Login Failed!', error);
+      } else {
+        console.log('Authenticated successfully with payload:', authData);
+        //redirects to messages
+        $state.go('message');
+      }
+    });
   };
+
   return {
-    createUser: createUser
+    createUser: createUser,
+    login: login
   };
 })
 
