@@ -2,6 +2,9 @@
   <ion-content>
   
   <form name="messageForm" ng-submit="sendMessage()">
+    <!-- This will later be friend name, once we can link token with name -->
+    <input ng-model="$parent.token" type="text" placeholder="Friend Token" required>
+
     <input ng-model="$parent.message" type="text" placeholder="Message" ng-maxlength="15" required>
 
     <button ng-disabled="messageForm.$invalid" type="submit" class="button button-clear ion-android-send iconsend"></button>
