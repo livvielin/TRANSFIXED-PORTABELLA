@@ -1,6 +1,6 @@
 angular.module('starter.usersController', ['ionic', 'starter.services'])
 
-.controller('UsersController', function ($scope, Database, User) {
+.controller('UsersController', function ($scope, $rootScope, Database, User) {
   $scope.friends = Database;
 
   $scope.inputs = {
@@ -8,8 +8,17 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
   };
 
   $scope.fetchUserByEmail = function() {
-    console.log($scope);
-    User.fetchUserByEmail($scope.inputs.email);
+    console.log($rootScope);
+    var searchResult = User.fetchUserByEmail($scope.inputs.email);
+    if (searchResult) {
+      $scope.notFound = false;
+      $scope.identified = true;
+      $scope.searchUser = searchResult;
+    } else {
+      $scope.identified = false;
+      $scope.notFound = true;
+    }
+    console.log($rootScope.userEmail);
   };
 
   $scope.addFriend = function() {

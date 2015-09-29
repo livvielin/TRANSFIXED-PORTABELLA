@@ -9,11 +9,16 @@
     <button class="button button-positive" ng-click="fetchUserByEmail()">
       Search
     </button>
-
+    <button class="button button-assertive" ng-if="notFound">
+      User Not Found
+    </button>
+    <button class="button button-positive" ng-if="identified" ng-click="addFriend()">
+      Add Friend
+    </button>
     <ion-list>
       <ion-item ng-repeat="friend in friends" class="item-avatar">
         <!-- <img ng-src="/img/ionic.png"> -->
-        <h2>{{ friend.name}}</h2>
+        <h2>{{ friend.name }}</h2>
         <p>{{ friend.number }}</p>
       </ion-item>
     </ion-list>

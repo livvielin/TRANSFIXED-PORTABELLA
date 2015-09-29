@@ -15,10 +15,8 @@ angular.module('starter.services', [])
 
   var fetchUserByEmail = function(email) {
     email = escape(email);
-    console.log(email);
     var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(email);
     var user = $firebaseObject(userRef);
-    console.log(user);
     return user;
   };
 
@@ -38,7 +36,10 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Auth', function($firebaseAuth, Database) {
+.factory('Auth', function($firebaseAuth, Database, $rootScope) {
+  var escape = function(email) {
+    return encodeURIComponent(email).replace('.', '%2E');
+  };
   var createUser = function(email, password) {
     Database.ref.createUser({
         email: email,
@@ -57,6 +58,7 @@ angular.module('starter.services', [])
         }
       } else {
         console.log('Successfully created user account with uid:', userData.uid);
+        currentUser = userData;
         var userRef = new Firebase('https://yotempest.firebaseio.com/users');
         var uid = userData.uid;
         userRef.update({
@@ -72,6 +74,9 @@ angular.module('starter.services', [])
   };
 
   var login = function(email, password, $state) {
+    var escape = function(email) {
+      return encodeURIComponent(email).replace('.', '%2E');
+    };
     Database.ref.authWithPassword({
       email: email,
       password: password
@@ -79,7 +84,10 @@ angular.module('starter.services', [])
       if (error) {
         console.log('Login Failed!', error);
       } else {
+        email = escape(email);
+        $rootScope.userEmail = email;
         console.log('Authenticated successfully with payload:', authData);
+        console.log($rootScope.userEmail);
         //redirects to messages
         $state.go('message');
       }
