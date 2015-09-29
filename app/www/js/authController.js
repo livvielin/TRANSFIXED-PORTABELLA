@@ -10,10 +10,18 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
 
   $scope.createUser = function() {
     Auth.createUser($scope.inputs.email, $scope.inputs.password);
+    $scope.identifyUser();
+    $scope.pushRegister();
   };
 
   $scope.login = function() {
     Auth.login($scope.inputs.email, $scope.inputs.password, $state);
+    $scope.identifyUser();
+    $scope.pushRegister();
+  };
+
+  $scope.checkUser = function() {
+    console.log($rootScope.userEmail);
   };
 
   //*** PUSH NOTIFICATION AUTH ***
@@ -22,6 +30,11 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     alert("Successfully registered token " + data.token);
     $log.info('Ionic Push: Got token ', data.token, data.platform);
     $scope.token = data.token;
+
+    console.log($rootScope.userEmail);
+    // put device token in database
+    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child($rootScope.userEmail)
+    .child('deviceToken').set($scope.token);
   });
 
   //Identifies a user with the Ionic User service for push notifications
