@@ -9,8 +9,8 @@
 
     <!-- Friend list here -->
     <ion-list class="card">
-      <ion-item ng-repeat="(friend, name) in decodedFriends" ng-click='sendMessage()'>
-          {{ name }}
+      <ion-item ng-repeat="friend in decodedFriends" ng-click='sendMessage(friend.token)'>
+          {{ friend.email }}
       </ion-item>
     </ion-list>
    

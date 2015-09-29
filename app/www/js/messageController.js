@@ -3,9 +3,10 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
 .controller('MessageController', function ($scope, $rootScope, $firebaseObject, Message, Database, User) {
 
 
-  $scope.sendMessage = function() {
-    Message.sendMessage($scope.message, $scope.token);
-    $scope.message = '';
+  $scope.sendMessage = function(token) {
+    Message.sendMessage($scope.message, token);
+    console.log($scope.message);
+    console.log(token);
   };
 
   console.log(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
@@ -21,7 +22,10 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
   .then(function(data) {
     $scope.decodedFriends = {};
     for (var friend in data.friends) {
-      $scope.decodedFriends[friend] = (decodeURIComponent(friend));
+      $scope.decodedFriends[friend] = {
+        email: decodeURIComponent(friend),
+        token: data.friends[friend]
+      };
     }
     console.log($scope.decodedFriends);
     $scope.friends = data.friends;
