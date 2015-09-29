@@ -2460,6 +2460,12 @@ button, input {
 button, select {
   text-transform: none; }
 
+input {
+  width: 100%;
+  background-color: #E8F8FF;
+  margin-left: 10px;
+}
+
 /**
  * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
  *  and `video` controls.
@@ -2590,7 +2596,8 @@ body.grade-b, body.grade-c {
   padding-top: 1px;
   margin-bottom: -1px;
   width: auto;
-  height: auto; }
+  height: auto;
+  background-color: #E8F8FF; }
 
 .menu .scroll-content.scroll-content-false {
   z-index: 11; }
@@ -4658,7 +4665,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
 .item {
   border-color: #ddd;
   background-color: #E8F8FF;
-  color: #444;
+  color: #11c1f3;
   position: relative;
   z-index: 2;
   display: block;
@@ -5836,7 +5843,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   height: 34px;
   color: #111;
   vertical-align: middle;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 16px; }
 
 .platform-ios input[type="datetime-local"], .platform-ios input[type="date"], .platform-ios input[type="month"], .platform-ios input[type="time"], .platform-ios input[type="week"], .platform-android input[type="datetime-local"], .platform-android input[type="date"], .platform-android input[type="month"], .platform-android input[type="time"], .platform-android input[type="week"] {
@@ -6655,7 +6662,8 @@ progress {
   .button.button-positive {
     border-color: #0c60ee;
     background-color: #387ef5;
-    color: #fff; }
+    color: #fff;
+    margin: 10px;}
     .button.button-positive:hover {
       color: #fff;
       text-decoration: none; }
