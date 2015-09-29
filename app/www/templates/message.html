@@ -8,14 +8,14 @@
     <input ng-model="$parent.message" type="text" placeholder="Message" ng-maxlength="15" required>
 
     <!-- Friend list here -->
-    <ion-list>
+    <ion-list class="card">
       <ion-checkbox ng-repeat="friend in friends" ng-model="friend.checked" ng-checked="friend.checked">
           {{ friend.name }}
       </ion-checkbox>
     </ion-list>
    
     <!-- Check whether message short enough, and at least one friend checked -->
-    <button ng-disabled="messageForm.$invalid || !isFriendChecked()" type="submit" class="button button-clear ion-android-send iconsend"></button>
+    <button ng-disabled="messageForm.$invalid || !isFriendChecked()" type="submit" class="button-large button-clear ion-android-send iconsend"></button>
   </form>
 
   <!-- Add friend button, fix later -->
