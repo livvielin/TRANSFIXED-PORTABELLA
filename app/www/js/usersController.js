@@ -8,7 +8,6 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
   };
 
   $scope.fetchUserByEmail = function() {
-    console.log($rootScope);
     var searchResult = User.fetchUserByEmail($scope.inputs.email);
     if (searchResult) {
       $scope.notFound = false;
@@ -18,11 +17,13 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
       $scope.identified = false;
       $scope.notFound = true;
     }
-    console.log($rootScope.userEmail);
   };
 
+  //
   $scope.addFriend = function() {
+    var email = $scope.searchUser.$id;
+    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child($rootScope.userEmail)
+    .child('friends').set({[email]: $scope.searchUser.deviceToken});
     console.log($scope.friends);
-    User.addFriend($scope.friends);
   };
 });

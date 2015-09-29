@@ -20,18 +20,7 @@ angular.module('starter.services', [])
     return user;
   };
 
-  //not used anymore
-  var addFriend = function(friends) {
-    var friendName = prompt('What is your friend\'s name?');
-    if (friendName) {
-      friends.$add({
-        'name': friendName
-      });
-    }
-  };
-
   return {
-    addFriend: addFriend,
     fetchUserByEmail: fetchUserByEmail
   };
 })
@@ -58,15 +47,15 @@ angular.module('starter.services', [])
         }
       } else {
         console.log('Successfully created user account with uid:', userData.uid);
-        currentUser = userData;
+        email = escape(email);
         var userRef = new Firebase('https://yotempest.firebaseio.com/users');
         var uid = userData.uid;
         userRef.update({
           [email]: {
             deviceToken: '',
-            friends: [{
+            friends: {
               [email]: 'EX-TOKEN'
-            }]
+            }
           }
         });
       }
