@@ -11,13 +11,11 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   $scope.createUser = function() {
     Auth.createUser($scope.inputs.email, $scope.inputs.password);
     $scope.identifyUser();
-    $scope.pushRegister();
   };
 
   $scope.login = function() {
     Auth.login($scope.inputs.email, $scope.inputs.password, $state);
     $scope.identifyUser();
-    $scope.pushRegister();
   };
 
   $scope.checkUser = function() {
@@ -55,7 +53,8 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     $ionicUser.identify(user).then(function(){
       $scope.identified = true;
       //Return the code for testing purposes
-      alert('Identified user' + user.name + '\n ID' + user.user_id);
+      // alert('Identified user' + user.name + '\n ID' + user.user_id);
+      $scope.pushRegister();
     });
   };
 

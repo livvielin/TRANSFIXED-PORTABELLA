@@ -21,9 +21,13 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
 
   //
   $scope.addFriend = function() {
-    var email = $scope.searchUser.$id;
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child($rootScope.userEmail)
-    .child('friends').set({[email]: $scope.searchUser.deviceToken});
+    var friendEmail = $scope.searchUser.$id;
+    var escape = function(email) {
+      return encodeURIComponent(email).replace('.', '%2E');
+    };
+    var myEmail = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(myEmail)
+    .child('friends').update({[friendEmail]: $scope.searchUser.deviceToken});
     console.log($scope.friends);
   };
 });
