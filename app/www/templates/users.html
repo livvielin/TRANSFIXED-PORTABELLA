@@ -1,0 +1,25 @@
+<ion-view view-title="Users" class="users-page">
+  <ion-content>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="inputs.email">
+      </label>
+    </div>
+    <button class="button button-positive" ng-click="fetchUserByEmail()">
+      Search
+    </button>
+
+    <ion-list>
+      <ion-item ng-repeat="friend in friends" class="item-avatar">
+        <!-- <img ng-src="/img/ionic.png"> -->
+        <h2>{{ friend.name}}</h2>
+        <p>{{ friend.number }}</p>
+      </ion-item>
+    </ion-list>
+   
+   <button class="button button-icon ion-plus" ng-click="addFriend()">
+    </button> 
+
+  </ion-content>
+</ion-view>

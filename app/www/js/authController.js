@@ -2,10 +2,6 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
 
 
 .controller('AuthController', function ($scope, Auth, $rootScope, $location, $state, $log, $ionicUser, $ionicPush) {
-  //UI properties
-  $scope.ui = {
-    showCreate: false
-  };
   //form properties
   $scope.inputs = {
     email: null,
