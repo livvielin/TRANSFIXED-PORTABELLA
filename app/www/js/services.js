@@ -48,14 +48,13 @@ angular.module('starter.services', [])
       } else {
         console.log('Successfully created user account with uid:', userData.uid);
         email = escape(email);
+        $rootScope.userEmail = email;
         var userRef = new Firebase('https://yotempest.firebaseio.com/users');
         var uid = userData.uid;
         userRef.update({
           [email]: {
             deviceToken: '',
-            friends: {
-              [email]: 'EX-TOKEN'
-            }
+            friends: {}
           }
         });
       }
@@ -76,7 +75,6 @@ angular.module('starter.services', [])
         email = escape(email);
         $rootScope.userEmail = email;
         console.log('Authenticated successfully with payload:', authData);
-        console.log($rootScope.userEmail);
         //redirects to messages
         $state.go('message');
       }

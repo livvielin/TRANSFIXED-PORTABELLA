@@ -3,19 +3,19 @@
   
   <form name="messageForm" ng-submit="sendMessage()">
     <!-- Testing purposes only, don't need this once we can link token with name  -->
-    <input ng-model="$parent.token" type="text" placeholder="Friend Token" required>
+    <!-- <input ng-model="$parent.token" type="text" placeholder="Friend Token" required> -->
 
     <input ng-model="$parent.message" type="text" placeholder="Message" ng-maxlength="15" required>
 
     <!-- Friend list here -->
     <ion-list class="card">
-      <ion-checkbox ng-repeat="friend in friends" ng-model="friend.checked" ng-checked="friend.checked" class="checkbox-calm">
-          {{ friend.name }}
-      </ion-checkbox>
+      <ion-item ng-repeat="(friend, name) in decodedFriends" ng-click='sendMessage()'>
+          {{ name }}
+      </ion-item>
     </ion-list>
    
     <!-- Check whether message short enough, and at least one friend checked -->
-    <button ng-disabled="messageForm.$invalid || !isFriendChecked()" type="submit" class="button-large button-clear ion-android-send iconsend"></button>
+    <!-- <button ng-disabled="messageForm.$invalid || !isFriendChecked()" type="submit" class="button-large button-clear ion-android-send iconsend"></button> -->
   </form>
 
   <!-- Add friend button, fix later -->

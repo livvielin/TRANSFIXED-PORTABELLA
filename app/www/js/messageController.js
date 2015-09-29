@@ -1,6 +1,6 @@
-angular.module('starter.messageController', ['ionic', 'starter.services'])
+angular.module('starter.messageController', ['ionic', 'starter.services','firebase'])
 
-.controller('MessageController', function ($scope, Message, Database, User) {
+.controller('MessageController', function ($scope, $rootScope, $firebaseObject, Message, Database, User) {
 
 
   $scope.sendMessage = function() {
@@ -8,14 +8,31 @@ angular.module('starter.messageController', ['ionic', 'starter.services'])
     $scope.message = '';
   };
 
-  // $scope.friends = Database;
+  console.log(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+
+  var escape = function(email) {
+    return encodeURIComponent(email).replace('.', '%2E');
+  };
+
+  var email = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+  var friends = new Firebase('https://yotempest.firebaseio.com/users').child(email);
+  var user = $firebaseObject(friends);
+  user.$loaded()
+  .then(function(data) {
+    $scope.decodedFriends = {};
+    for (var friend in data.friends) {
+      $scope.decodedFriends[friend] = (decodeURIComponent(friend));
+    }
+    console.log($scope.decodedFriends);
+    $scope.friends = data.friends;
+  });
 
   // Temporary friends array
-  $scope.friends = [
-    {'name': 'Juana', 'checked': false},
-    {'name': 'Alex', 'checked': false},
-    {'name': 'Livvie', 'checked': false}
-  ];
+  // $scope.friends = [
+  //   {'name': 'Juana', 'checked': false},
+  //   {'name': 'Alex', 'checked': false},
+  //   {'name': 'Livvie', 'checked': false}
+  // ];
 
   $scope.addFriend = function () {
     User.addFriend($scope.friends);
