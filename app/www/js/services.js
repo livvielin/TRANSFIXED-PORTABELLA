@@ -1,14 +1,26 @@
 angular.module('starter.services', [])
 
-.factory('Database', function() {
+.factory('Database', function($firebaseObject) {
   var ref = new Firebase('https://yotempest.firebaseio.com');
+  console.log($firebaseObject(ref));
   return {
     ref: ref
   };
 })
 
-.factory('User', function() {
+.factory('User', function($firebaseArray, $firebaseObject) {
+  var escape = function(email) {
+    return encodeURIComponent(email).replace('.', '%2E');
+  };
 
+  var fetchUserByEmail = function(email) {
+    email = escape(email);
+    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(email);
+    var user = $firebaseObject(userRef);
+    return user;
+  };
+
+  //not used anymore
   var addFriend = function(friends) {
     var friendName = prompt('What is your friend\'s name?');
     if (friendName) {
@@ -19,11 +31,15 @@ angular.module('starter.services', [])
   };
 
   return {
-    addFriend: addFriend
+    addFriend: addFriend,
+    fetchUserByEmail: fetchUserByEmail
   };
 })
 
-.factory('Auth', function($firebaseAuth, Database) {
+.factory('Auth', function($firebaseAuth, Database, $rootScope) {
+  var escape = function(email) {
+    return encodeURIComponent(email).replace('.', '%2E');
+  };
   var createUser = function(email, password) {
     Database.ref.createUser({
         email: email,
@@ -42,11 +58,25 @@ angular.module('starter.services', [])
         }
       } else {
         console.log('Successfully created user account with uid:', userData.uid);
+        currentUser = userData;
+        var userRef = new Firebase('https://yotempest.firebaseio.com/users');
+        var uid = userData.uid;
+        userRef.update({
+          [email]: {
+            deviceToken: '',
+            friends: [{
+              [email]: 'EX-TOKEN'
+            }]
+          }
+        });
       }
     });
   };
 
   var login = function(email, password, $state) {
+    var escape = function(email) {
+      return encodeURIComponent(email).replace('.', '%2E');
+    };
     Database.ref.authWithPassword({
       email: email,
       password: password
@@ -54,7 +84,10 @@ angular.module('starter.services', [])
       if (error) {
         console.log('Login Failed!', error);
       } else {
+        email = escape(email);
+        $rootScope.userEmail = email;
         console.log('Authenticated successfully with payload:', authData);
+        console.log($rootScope.userEmail);
         //redirects to messages
         $state.go('message');
       }

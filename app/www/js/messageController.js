@@ -2,6 +2,7 @@ angular.module('starter.messageController', ['ionic', 'starter.services'])
 
 .controller('MessageController', function ($scope, Message, Database, User) {
 
+
   $scope.sendMessage = function() {
     Message.sendMessage($scope.message, $scope.token);
     $scope.message = '';
