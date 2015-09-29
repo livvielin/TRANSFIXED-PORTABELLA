@@ -31,13 +31,6 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
     $scope.friends = data.friends;
   });
 
-  // Temporary friends array
-  // $scope.friends = [
-  //   {'name': 'Juana', 'checked': false},
-  //   {'name': 'Alex', 'checked': false},
-  //   {'name': 'Livvie', 'checked': false}
-  // ];
-
   $scope.addFriend = function () {
     User.addFriend($scope.friends);
   };
