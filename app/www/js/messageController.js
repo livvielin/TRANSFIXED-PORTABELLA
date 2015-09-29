@@ -1,6 +1,6 @@
 angular.module('starter.messageController', ['ionic', 'starter.services','firebase'])
 
-.controller('MessageController', function ($scope, $rootScope, $firebaseObject, Message, Database, User) {
+.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, Database, User) {
 
 
   $scope.sendMessage = function(token) {
@@ -33,6 +33,10 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
 
   $scope.addFriend = function () {
     User.addFriend($scope.friends);
+  };
+
+  $scope.navToUsers = function() {
+    $state.go('users');
   };
 
   // Check if at least one friend selected
