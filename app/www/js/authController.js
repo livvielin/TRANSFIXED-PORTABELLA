@@ -19,7 +19,7 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   $scope.checkUser = function() {
-    console.log($rootScope.userEmail);
+    console.log('Current User: ' + JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
   };
 
   //*** PUSH NOTIFICATION AUTH ***
@@ -29,9 +29,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     $log.info('Ionic Push: Got token ', data.token, data.platform);
     $scope.token = data.token;
 
-    console.log($rootScope.userEmail);
+    var escape = function(email) {
+      return encodeURIComponent(email).replace('.', '%2E');
+    };
+    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
     // put device token in database
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child($rootScope.userEmail)
+    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(escape(currentUser))
     .child('deviceToken').set($scope.token);
   });
 

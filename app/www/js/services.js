@@ -25,7 +25,7 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Auth', function($firebaseAuth, Database, $rootScope) {
+.factory('Auth', function($firebaseAuth, Database) {
   var escape = function(email) {
     return encodeURIComponent(email).replace('.', '%2E');
   };
@@ -48,7 +48,6 @@ angular.module('starter.services', [])
       } else {
         console.log('Successfully created user account with uid:', userData.uid);
         email = escape(email);
-        $rootScope.userEmail = email;
         var userRef = new Firebase('https://yotempest.firebaseio.com/users');
         var uid = userData.uid;
         userRef.update({
@@ -72,8 +71,8 @@ angular.module('starter.services', [])
       if (error) {
         console.log('Login Failed!', error);
       } else {
-        email = escape(email);
-        $rootScope.userEmail = email;
+        email = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+        console.log('Current User: ' + email);
         console.log('Authenticated successfully with payload:', authData);
         //redirects to messages
         $state.go('message');

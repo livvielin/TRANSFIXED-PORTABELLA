@@ -27,7 +27,7 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
         token: data.friends[friend]
       };
     }
-    console.log($scope.decodedFriends);
+    console.log('Decoded friends: ' + $scope.decodedFriends);
     $scope.friends = data.friends;
   });
 
