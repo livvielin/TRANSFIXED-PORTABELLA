@@ -8,13 +8,15 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     password: null
   };
 
+  var domain = '@yotempest.com';
+
   $scope.createUser = function() {
-    Auth.createUser($scope.inputs.email, $scope.inputs.password);
+    Auth.createUser($scope.inputs.email + domain, $scope.inputs.password);
     $scope.identifyUser();
   };
 
   $scope.login = function() {
-    Auth.login($scope.inputs.email, $scope.inputs.password, $state);
+    Auth.login($scope.inputs.email + domain, $scope.inputs.password, $state);
     $scope.identifyUser();
   };
 

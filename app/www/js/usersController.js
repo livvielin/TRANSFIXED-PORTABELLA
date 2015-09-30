@@ -7,8 +7,10 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     email: null
   };
 
+  var domain = '@yotempest.com';
+
   $scope.fetchUserByEmail = function() {
-    var searchResult = User.fetchUserByEmail($scope.inputs.email);
+    var searchResult = User.fetchUserByEmail($scope.inputs.email + domain);
     if (searchResult) {
       $scope.notFound = false;
       $scope.identified = true;
@@ -19,7 +21,6 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     }
   };
 
-  //
   $scope.addFriend = function() {
     var friendEmail = $scope.searchUser.$id;
     var escape = function(email) {
