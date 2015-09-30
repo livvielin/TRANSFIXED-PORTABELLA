@@ -1,6 +1,6 @@
 angular.module('starter.usersController', ['ionic', 'starter.services'])
 
-.controller('UsersController', function ($scope, $rootScope, Database, User) {
+.controller('UsersController', function ($scope, $rootScope, $state, Database, User) {
   $scope.friends = Database;
 
   $scope.inputs = {
@@ -19,7 +19,6 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     }
   };
 
-  //
   $scope.addFriend = function() {
     var friendEmail = $scope.searchUser.$id;
     var escape = function(email) {
@@ -29,5 +28,9 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(myEmail)
     .child('friends').update({[friendEmail]: $scope.searchUser.deviceToken});
     console.log($scope.friends);
+  };
+
+  $scope.navToMessage = function() {
+    $state.go('message');
   };
 });
