@@ -70,7 +70,7 @@ angular.module('starter.services', [])
       password: password
     }, function(error, authData) {
       if (error) {
-        console.log('Login Failed!', error);
+        console.log('Login Failed! ' + error);
       } else {
         email = escape(email);
         $rootScope.userEmail = email;
