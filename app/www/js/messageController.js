@@ -24,7 +24,8 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
     for (var friend in data.friends) {
       $scope.decodedFriends[friend] = {
         email: decodeURIComponent(friend),
-        token: data.friends[friend]
+        token: data.friends[friend],
+        username: decodeURIComponent(friend).slice(0, decodeURIComponent(friend).indexOf('@'))
       };
     }
     console.log('Decoded friends: ' + $scope.decodedFriends);
