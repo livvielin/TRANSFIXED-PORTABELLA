@@ -15,9 +15,41 @@ angular.module('starter.services', [])
 
   var fetchUserByEmail = function(email) {
     email = escape(email);
+
     var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(email);
+
+    var USERS_LOCATION = 'https://yotempest.firebaseio.com/users';
+
+    var userExistsCallback = function(userId, exists) {
+      if (exists) {
+        console.log('user ' + userId + ' exists!');
+        return true;
+      } else {
+        console.log('user ' + userId + ' does not exist!');
+        return false;
+      }
+    };
+
+    // Tests to see if /users/<userId> has any data. 
+    var checkIfUserExists = function(userId) {
+      var userExists;
+      var usersRef = new Firebase(USERS_LOCATION);
+      usersRef.child(userId).once('value', function(snapshot) {
+        var exists = (snapshot.val() !== null);
+        userExists = userExistsCallback(userId, exists);
+      });
+      return userExists;
+    };
+
+    // var userExists = checkIfUserExists(email);
     var user = $firebaseObject(userRef);
-    return user;
+
+    if (checkIfUserExists(email)) {
+      return user;
+    } else {
+      return null;
+    }
+
   };
 
   return {

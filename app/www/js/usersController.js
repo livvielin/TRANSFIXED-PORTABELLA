@@ -1,7 +1,6 @@
 angular.module('starter.usersController', ['ionic', 'starter.services'])
 
-.controller('UsersController', function ($scope, $rootScope, Database, User) {
-  $scope.friends = Database;
+.controller('UsersController', function ($scope, Database, User) {
 
   $scope.inputs = {
     email: null
@@ -29,6 +28,6 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     var myEmail = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
     var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(myEmail)
     .child('friends').update({[friendEmail]: $scope.searchUser.deviceToken});
-    console.log($scope.friends);
   };
+
 });
