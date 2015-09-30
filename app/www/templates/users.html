@@ -13,18 +13,15 @@
       User Not Found
     </button>
     <button class="button button-positive" ng-if="identified" ng-click="addFriend()">
-      Add Friend
+      Add Friend: {{ username }}
     </button>
-    <ion-list>
-      <ion-item ng-repeat="friend in friends" class="item-avatar">
-        <!-- <img ng-src="/img/ionic.png"> -->
-        <h2>{{ friend.name }}</h2>
-        <p>{{ friend.number }}</p>
-      </ion-item>
-    </ion-list>
+    <button class="button button-calm" ng-if="added">Added {{ username }}</button>
    
-   <button class="button button-icon ion-plus" ng-click="addFriend()">
-    </button> 
+   <!-- May or may not have a list here -->
+
+   <!-- This button isn't used -->
+   <!-- <button class="button button-icon ion-plus" ng-click="addFriend()">
+    </button>  -->
 
   </ion-content>
 </ion-view>
