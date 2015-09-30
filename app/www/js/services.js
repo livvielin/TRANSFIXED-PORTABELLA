@@ -29,7 +29,7 @@ angular.module('starter.services', [])
   var escape = function(email) {
     return encodeURIComponent(email).replace('.', '%2E');
   };
-  var createUser = function(email, password) {
+  var createUser = function(email, password, callback) {
     Database.ref.createUser({
         email: email,
         password: password
@@ -56,11 +56,12 @@ angular.module('starter.services', [])
             friends: {}
           }
         });
+        callback();
       }
     });
   };
 
-  var login = function(email, password, $state) {
+  var login = function(email, password, $state, callback) {
     var escape = function(email) {
       return encodeURIComponent(email).replace('.', '%2E');
     };
@@ -78,6 +79,7 @@ angular.module('starter.services', [])
         $state.go('message');
       }
     });
+    callback();
   };
 
   return {
