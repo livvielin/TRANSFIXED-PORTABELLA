@@ -149,6 +149,9 @@ angular.module('starter.services', [])
     // Make the API call
     $http(req).success(function(resp){
       // Handle success
+      console.log("We sent the message: " + message);
+      console.log("To user: " + token)
+      console.log("We got the response: " + JSON.stringify(resp));
       console.log("Ionic Push: Push success!");
     }).error(function(error){
       // Handle error 
