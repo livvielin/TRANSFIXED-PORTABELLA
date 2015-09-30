@@ -103,7 +103,7 @@ angular.module('starter.services', [])
       password: password
     }, function(error, authData) {
       if (error) {
-        console.log('Login Failed!', error);
+        console.log('Login Failed! ' + error);
       } else {
         email = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
         console.log('Current User: ' + email);

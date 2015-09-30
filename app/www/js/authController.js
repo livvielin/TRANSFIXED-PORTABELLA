@@ -17,9 +17,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   $scope.login = function() {
+
+    console.log('Loging in with username:' + $scope.inputs.email + "Password:" + $scope.inputs.password);
     Auth.login($scope.inputs.email + domain, $scope.inputs.password, $state, function() {
       $scope.identifyUser();
     });
+
   };
 
   $scope.checkUser = function() {
