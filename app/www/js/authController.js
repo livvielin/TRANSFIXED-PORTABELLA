@@ -9,13 +9,13 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   $scope.createUser = function() {
-    Auth.createUser($scope.inputs.email, $scope.inputs.password);
     $scope.identifyUser();
+    Auth.createUser($scope.inputs.email, $scope.inputs.password);
   };
 
   $scope.login = function() {
-    Auth.login($scope.inputs.email, $scope.inputs.password, $state);
     $scope.identifyUser();
+    Auth.login($scope.inputs.email, $scope.inputs.password);
   };
 
   $scope.checkUser = function() {

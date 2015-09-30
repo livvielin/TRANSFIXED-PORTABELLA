@@ -25,7 +25,7 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Auth', function($firebaseAuth, Database, $rootScope) {
+.factory('Auth', function($firebaseAuth, Database, $rootScope, $state) {
   var escape = function(email) {
     return encodeURIComponent(email).replace('.', '%2E');
   };
@@ -57,11 +57,12 @@ angular.module('starter.services', [])
             friends: {}
           }
         });
+        $state.go('message');
       }
     });
   };
 
-  var login = function(email, password, $state) {
+  var login = function(email, password) {
     var escape = function(email) {
       return encodeURIComponent(email).replace('.', '%2E');
     };
