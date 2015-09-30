@@ -1,6 +1,6 @@
 angular.module('starter.usersController', ['ionic', 'starter.services'])
 
-.controller('UsersController', function ($scope, Database, User) {
+.controller('UsersController', function ($scope, $state, User) {
 
   $scope.inputs = {
     email: null
@@ -37,6 +37,10 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     $scope.identified = false;
     // Show message that friend was added
     $scope.added = true;
+  };
+
+  $scope.navToMessage = function() {
+    $state.go('message');
   };
 
 });
