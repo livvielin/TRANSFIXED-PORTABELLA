@@ -8,19 +8,25 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     password: null
   };
 
+  var domain = '@yotempest.com';
+
   $scope.createUser = function() {
-    $scope.identifyUser();
-    Auth.createUser($scope.inputs.email, $scope.inputs.password);
+    Auth.createUser($scope.inputs.email + domain, $scope.inputs.password, function() {
+      $scope.login();
+    });
   };
 
   $scope.login = function() {
+
     console.log('Loging in with username:' + $scope.inputs.email + "Password:" + $scope.inputs.password);
-    $scope.identifyUser();
-    Auth.login($scope.inputs.email, $scope.inputs.password);
+    Auth.login($scope.inputs.email + domain, $scope.inputs.password, $state, function() {
+      $scope.identifyUser();
+    });
+
   };
 
   $scope.checkUser = function() {
-    console.log($rootScope.userEmail);
+    console.log('Current User: ' + JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
   };
 
   //*** PUSH NOTIFICATION AUTH ***
@@ -30,9 +36,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     $log.info('Ionic Push: Got token ', data.token, data.platform);
     $scope.token = data.token;
 
-    console.log($rootScope.userEmail);
+    var escape = function(email) {
+      return encodeURIComponent(email).replace('.', '%2E');
+    };
+    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
     // put device token in database
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child($rootScope.userEmail)
+    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(escape(currentUser))
     .child('deviceToken').set($scope.token);
   });
 
