@@ -19,10 +19,9 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Custom colors
-$light:                       #EEE5E9 !default;
 $positive:                    #7C7C7C !default;
 $royal:                       #EB4511 !default;
-$calm                         #92DCE5 !default;
+$calm:                        #92DCE5 !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
