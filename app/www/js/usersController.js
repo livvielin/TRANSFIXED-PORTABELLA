@@ -9,7 +9,8 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
   var domain = '@yotempest.com';
 
   $scope.fetchUserByEmail = function() {
-    var searchResult = User.fetchUserByEmail($scope.inputs.email + domain);
+    var searchEmail = ($scope.inputs.email + domain).toLowerCase();
+    var searchResult = User.fetchUserByEmail(searchEmail);
     if (searchResult) {
       $scope.notFound = false;
       $scope.identified = true;
