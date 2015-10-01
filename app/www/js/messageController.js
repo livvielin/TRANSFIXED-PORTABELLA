@@ -28,7 +28,6 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
         username: decodeURIComponent(friend).slice(0, decodeURIComponent(friend).indexOf('@'))
       };
     }
-    console.log('Decoded friends: ' + $scope.decodedFriends);
     $scope.friends = data.friends;
   });
 
