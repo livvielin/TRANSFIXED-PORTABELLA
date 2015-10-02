@@ -24,6 +24,7 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
 
   var email = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
   var friends = new Firebase('https://yotempest.firebaseio.com/users').child(email);
+<<<<<<< HEAD
   // Update on friend added
   var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(email).child('friends');
   userRef.on('value', function (snapshot) {
@@ -39,6 +40,20 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
       }
       $scope.friends = data.friends;
     });
+=======
+  var user = $firebaseObject(friends);
+  user.$loaded()
+  .then(function(data) {
+    $scope.decodedFriends = {};
+    for (var friend in data.friends) {
+      $scope.decodedFriends[friend] = {
+        email: decodeURIComponent(friend),
+        token: data.friends[friend],
+        username: decodeURIComponent(friend).slice(0, decodeURIComponent(friend).indexOf('@'))
+      };
+    }
+    $scope.friends = data.friends;
+>>>>>>> f6cc4c7d1dd69bb7ccb3aac5b944a9a032d124d3
   });
 
   $scope.navToUsers = function() {
