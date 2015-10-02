@@ -31,7 +31,7 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
     };
     var myEmail = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
     var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(myEmail)
-    .child('friends').update({[friendEmail]: $scope.searchUser.deviceToken});
+    .child('friends').update({[friendEmail]: decodeURIComponent(friendEmail).slice(0, decodeURIComponent(friendEmail).indexOf('@'))});
     // Reset text box
     $scope.inputs.email = '';
     // Hide the add friend button

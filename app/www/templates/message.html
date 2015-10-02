@@ -1,4 +1,4 @@
-<ion-view cache-view="false" view-title="Tempest?" class="message-page">
+<ion-view view-title="Tempest?" class="message-page">
   <ion-content>
   
   <form name="messageForm" ng-submit="">
@@ -10,7 +10,7 @@
   </form>
     <!-- Display your friends list -->
     <ion-list class="card">
-      <ion-item ng-repeat="friend in decodedFriends" ng-click='sendMessage(friend.token)'>
+      <ion-item ng-repeat="friend in decodedFriends" ng-click='sendMessage(friend.email)'>
           {{ friend.username }}
       </ion-item>
     </ion-list>
