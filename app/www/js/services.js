@@ -129,7 +129,7 @@ angular.module('starter.services', [])
   // Encode your key
   var auth = btoa(privateKey + ':');
 
-  var sendMessage = function(message, token) {
+  var sendMessage = function(message, token, callback) {
     // Build the request object
     var req = {
       method: 'POST',
@@ -153,6 +153,7 @@ angular.module('starter.services', [])
       console.log("To user: " + token)
       console.log("We got the response: " + JSON.stringify(resp));
       console.log("Ionic Push: Push success!");
+      callback();
     }).error(function(error){
       // Handle error 
       console.log("Ionic Push: Push error...");
