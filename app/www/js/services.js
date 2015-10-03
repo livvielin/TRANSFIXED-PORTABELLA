@@ -41,7 +41,6 @@ angular.module('starter.services', [])
       return userExists;
     };
 
-    // var userExists = checkIfUserExists(email);
     var user = $firebaseObject(userRef);
 
     if (checkIfUserExists(email)) {
@@ -52,8 +51,44 @@ angular.module('starter.services', [])
 
   };
 
+  var isCurrentFriend = function(email) {
+    email = escape(email);
+
+    var friendExistsCallback = function(userId, exists) {
+      if (exists) {
+        console.log('friend ' + userId + ' exists!');
+        return true;
+      } else {
+        console.log('friend ' + userId + ' does not exist!');
+        return false;
+      }
+    };
+
+    var currentUser = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+    var friendRef = new Firebase('https://yotempest.firebaseio.com/users').child(currentUser).child('friends').child(email);
+
+    var checkCurrentFriend = function(userId) {
+      var friendsRef = new Firebase('https://yotempest.firebaseio.com/users').child(currentUser).child('friends');
+      var friendExists;
+      friendsRef.child(userId).once('value', function(snapshot) {
+        var exists = (snapshot.val() !== null);
+        friendExists = friendExistsCallback(userId, exists);
+      });
+      return friendExists;
+    };
+
+    var friend = $firebaseObject(friendRef);
+
+    if (checkCurrentFriend(email)) {
+      return friend;
+    } else {
+      return null;
+    }
+  };
+
   return {
-    fetchUserByEmail: fetchUserByEmail
+    fetchUserByEmail: fetchUserByEmail,
+    isCurrentFriend: isCurrentFriend
   };
 })
 
