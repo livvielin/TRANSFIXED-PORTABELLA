@@ -10,10 +10,11 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
     friendRef.on('value', function (snapshot) {
       token = snapshot.val().deviceToken;
     });
+    // Find current user for 'From'
+    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+    var currentUsername = currentUser.slice(0, currentUser.indexOf('@'));
     // Send the message
-    Message.sendMessage($scope.message, token);
-    console.log($scope.message);
-    console.log(token);
+    Message.sendMessage(currentUsername + ': ' + $scope.message, token);
   };
 
   console.log(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
