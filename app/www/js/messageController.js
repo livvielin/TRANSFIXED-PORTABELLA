@@ -1,19 +1,26 @@
 angular.module('starter.messageController', ['ionic', 'starter.services','firebase'])
 
-.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, Database, User) {
+.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, Database, User, $timeout) {
 
+  $scope.sent = [];
 
-  $scope.sendMessage = function(friend) {
+  $scope.sendMessage = function(friend, $index) {
     // Find friend token
     var token;
     var friendRef = new Firebase('https://yotempest.firebaseio.com/users').child(friend);
     friendRef.on('value', function (snapshot) {
       token = snapshot.val().deviceToken;
     });
-    // Send the message
-    Message.sendMessage($scope.message, token);
-    console.log($scope.message);
-    console.log(token);
+    // Find current user for 'From'
+    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+    var currentUsername = currentUser.slice(0, currentUser.indexOf('@'));
+    // Send the message from current user and show sent message
+    Message.sendMessage(currentUsername + ': ' + $scope.message, token, function () {
+      $scope.sent[$index] = true;
+      $timeout(function() {
+        $scope.sent[$index] = false;
+      }, 1000);
+    });
   };
 
   console.log(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);

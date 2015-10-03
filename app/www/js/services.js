@@ -41,7 +41,6 @@ angular.module('starter.services', [])
       return userExists;
     };
 
-    // var userExists = checkIfUserExists(email);
     var user = $firebaseObject(userRef);
 
     if (checkIfUserExists(email)) {
@@ -52,8 +51,44 @@ angular.module('starter.services', [])
 
   };
 
+  var isCurrentFriend = function(email) {
+    email = escape(email);
+
+    var friendExistsCallback = function(userId, exists) {
+      if (exists) {
+        console.log('friend ' + userId + ' exists!');
+        return true;
+      } else {
+        console.log('friend ' + userId + ' does not exist!');
+        return false;
+      }
+    };
+
+    var currentUser = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+    var friendRef = new Firebase('https://yotempest.firebaseio.com/users').child(currentUser).child('friends').child(email);
+
+    var checkCurrentFriend = function(userId) {
+      var friendsRef = new Firebase('https://yotempest.firebaseio.com/users').child(currentUser).child('friends');
+      var friendExists;
+      friendsRef.child(userId).once('value', function(snapshot) {
+        var exists = (snapshot.val() !== null);
+        friendExists = friendExistsCallback(userId, exists);
+      });
+      return friendExists;
+    };
+
+    var friend = $firebaseObject(friendRef);
+
+    if (checkCurrentFriend(email)) {
+      return friend;
+    } else {
+      return null;
+    }
+  };
+
   return {
-    fetchUserByEmail: fetchUserByEmail
+    fetchUserByEmail: fetchUserByEmail,
+    isCurrentFriend: isCurrentFriend
   };
 })
 
@@ -129,7 +164,7 @@ angular.module('starter.services', [])
   // Encode your key
   var auth = btoa(privateKey + ':');
 
-  var sendMessage = function(message, token) {
+  var sendMessage = function(message, token, callback) {
     // Build the request object
     var req = {
       method: 'POST',
@@ -153,6 +188,7 @@ angular.module('starter.services', [])
       console.log("To user: " + token)
       console.log("We got the response: " + JSON.stringify(resp));
       console.log("Ionic Push: Push success!");
+      callback();
     }).error(function(error){
       // Handle error 
       console.log("Ionic Push: Push error...");
