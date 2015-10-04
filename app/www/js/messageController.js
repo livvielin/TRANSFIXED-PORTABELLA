@@ -15,7 +15,7 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
     var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
     var currentUsername = currentUser.slice(0, currentUser.indexOf('@'));
     // Send the message from current user and show sent message
-    Message.sendMessage(currentUsername + ': ' + $scope.message, token, function () {
+    Message.sendMessage(currentUsername, $scope.message, token, function () {
       $scope.sent[$index] = true;
       $timeout(function() {
         $scope.sent[$index] = false;

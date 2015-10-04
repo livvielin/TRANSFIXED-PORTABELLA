@@ -34,8 +34,10 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   //Handler for incoming device tokens. Allows us access so we can decide what to do with it (push to firebase?)
   $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
     alert("Successfully registered token " + data.token);
-    $log.info('Ionic Push: Got token ', data.token, data.platform);
+    $log.info("Successfully registered token " + data.token);
+    $log.info('Ionic Push: DATA = ' + JSON.stringify(data));
     $scope.token = data.token;
+    $log.info($scope.token);
 
     var escape = function(email) {
       return encodeURIComponent(email).replace('.', '%2E');
@@ -43,7 +45,7 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
     // put device token in database
     var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(escape(currentUser))
-    .child('deviceToken').set($scope.token);
+    .child('deviceToken').set(data.token);
   });
 
   //Identifies a user with the Ionic User service for push notifications
@@ -80,6 +82,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
       onNotification: function(notification) {
         // Handle new push notifications here
         $log.info(notification);
+        switch( notification.event ){
+         case 'message':
+          $rootScope.alert('notification:updated', notification);
+         break;
+         }
+
         return true;
       }
     });
