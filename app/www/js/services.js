@@ -169,7 +169,7 @@ angular.module('starter.services', [])
     // Encode your key
     var auth = btoa(privateKey + ':');
 
-    var sendMessage = function(recipient, message, token, callback) {
+    var sendMessage = function(sender, message, token, callback) {
       // Build the request object
       var req = {
         method: 'POST',
@@ -182,18 +182,16 @@ angular.module('starter.services', [])
         data: {
           "tokens": [token], // will later change to format ['your', 'target', 'tokens']
           "notification": {
-            "alert": "From: " + recipient,
+            "alert": "From: " + sender,
             "android":{
               "title": message,
               "iconColor": "purple", 
               "delayWhileIdle":true,
               "timeToLive":300,
-              "payload":{
-                "actions": [
-                  {title: "Nope"},
-                  {title: "Yep"}
-                ]
-              }
+              "actions": [
+                { icon: "ion-close", title: "NOPE"},
+                { icon: "ion-checkmark", title: "YEP", callback:"app.yep()"}
+              ]
             }
           }
         }
