@@ -1,18 +1,18 @@
 angular.module('starter.messageController', ['ionic', 'starter.services','firebase'])
 
-.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, $timeout) {
+.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, $timeout, Database, Escape) {
 
   $scope.sent = [];
 
   $scope.sendMessage = function(friend, $index) {
     // Find friend token
     var token;
-    var friendRef = new Firebase('https://yotempest.firebaseio.com/users').child(friend);
+    var friendRef = Database.usersRef.child(friend);
     friendRef.on('value', function (snapshot) {
       token = snapshot.val().deviceToken;
     });
     // Find current user for 'From'
-    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+    var currentUser = JSON.parse(window.localStorage[Database.session]).password.email;
     var currentUsername = currentUser.slice(0, currentUser.indexOf('@'));
     // Send the message from current user and show sent message
     Message.sendMessage(currentUsername, $scope.message, token, function () {
@@ -23,16 +23,12 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
     });
   };
 
-  console.log(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+  console.log(JSON.parse(window.localStorage[Database.session]).password.email);
 
-  var escape = function(email) {
-    return encodeURIComponent(email).replace('.', '%2E');
-  };
-
-  var email = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
-  var friends = new Firebase('https://yotempest.firebaseio.com/users').child(email);
+  var email = Escape.escape(JSON.parse(window.localStorage[Database.session]).password.email);
+  var friends = Database.usersRef.child(email);
   // Update on friend added
-  var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(email).child('friends');
+  var userRef = Database.usersRef.child(email).child('friends');
   userRef.on('value', function (snapshot) {
     var user = $firebaseObject(friends);
     user.$loaded()

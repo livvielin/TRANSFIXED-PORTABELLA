@@ -1,6 +1,6 @@
 angular.module('starter.usersController', ['ionic', 'starter.services'])
 
-.controller('UsersController', function ($scope, $state, User) {
+.controller('UsersController', function ($scope, $state, User, Escape, Database) {
 
   $scope.inputs = {
     email: null
@@ -40,11 +40,8 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
 
   $scope.addFriend = function() {
     var friendEmail = $scope.searchUser.$id;
-    var escape = function(email) {
-      return encodeURIComponent(email).replace('.', '%2E');
-    };
-    var myEmail = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(myEmail)
+    var myEmail = Escape.escape(JSON.parse(window.localStorage[Database.session]).password.email);
+    var userRef = Database.usersRef.child(myEmail)
     .child('friends').update({[friendEmail]: decodeURIComponent(friendEmail).slice(0, decodeURIComponent(friendEmail).indexOf('@'))});
     // Reset text box
     $scope.inputs.email = '';
@@ -56,12 +53,8 @@ angular.module('starter.usersController', ['ionic', 'starter.services'])
 
   $scope.removeFriend = function() {
     var friendEmail = $scope.searchUser.$id;
-    var escape = function(email) {
-      return encodeURIComponent(email).replace('.', '%2E');
-    };
-    var myEmail = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(myEmail)
-    .child('friends').child(friendEmail);
+    var myEmail = Escape.escape(JSON.parse(window.localStorage[Database.session]).password.email);
+    var userRef = Database.usersRef.child(myEmail).child('friends').child(friendEmail);
     userRef.remove();
     // Reset text box
     $scope.inputs.email = '';

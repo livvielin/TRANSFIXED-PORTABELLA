@@ -3,22 +3,33 @@ angular.module('starter.services', [])
   .factory('Database', function($firebaseObject) {
     var ref = new Firebase('https://yotempest.firebaseio.com');
     console.log($firebaseObject(ref));
+    var usersRef = new Firebase('https://yotempest.firebaseio.com/users');
+    var session = 'firebase:session::' + 'yotempest';
     return {
-      ref: ref
+      ref: ref,
+      usersRef: usersRef,
+      session: session
     };
   })
 
-  .factory('User', function($firebaseArray, $firebaseObject) {
+  .factory('Escape', function () {
     var escape = function(email) {
       return encodeURIComponent(email).replace('.', '%2E');
     };
+    
+    return {
+      escape: escape
+    };
+  })
+
+  .factory('User', function($firebaseArray, $firebaseObject, Database, Escape) {
 
     var fetchUserByEmail = function(email) {
-      email = escape(email);
+      email = Escape.escape(email);
 
-      var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(email);
+      var userRef = Database.usersRef.child(email);
 
-      var USERS_LOCATION = 'https://yotempest.firebaseio.com/users';
+      var USERS_LOCATION = Database.usersRef;
 
       var userExistsCallback = function(userId, exists) {
         if (exists) {
@@ -33,7 +44,7 @@ angular.module('starter.services', [])
       // Tests to see if /users/<userId> has any data. 
       var checkIfUserExists = function(userId) {
         var userExists;
-        var usersRef = new Firebase(USERS_LOCATION);
+        var usersRef = USERS_LOCATION;
         usersRef.child(userId).once('value', function(snapshot) {
           var exists = (snapshot.val() !== null);
           userExists = userExistsCallback(userId, exists);
@@ -52,7 +63,7 @@ angular.module('starter.services', [])
     };
 
     var isCurrentFriend = function(email) {
-      email = escape(email);
+      email = Escape.escape(email);
 
       var friendExistsCallback = function(userId, exists) {
         if (exists) {
@@ -64,11 +75,11 @@ angular.module('starter.services', [])
         }
       };
 
-      var currentUser = escape(JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
-      var friendRef = new Firebase('https://yotempest.firebaseio.com/users').child(currentUser).child('friends').child(email);
+      var currentUser = Escape.escape(JSON.parse(window.localStorage[Database.session]).password.email);
+      var friendRef = Database.usersRef.child(currentUser).child('friends').child(email);
 
       var checkCurrentFriend = function(userId) {
-        var friendsRef = new Firebase('https://yotempest.firebaseio.com/users').child(currentUser).child('friends');
+        var friendsRef = Database.usersRef.child(currentUser).child('friends');
         var friendExists;
         friendsRef.child(userId).once('value', function(snapshot) {
           var exists = (snapshot.val() !== null);
@@ -92,10 +103,8 @@ angular.module('starter.services', [])
     };
   })
 
-  .factory('Auth', function(Database, $state) {
-    var escape = function(email) {
-      return encodeURIComponent(email).replace('.', '%2E');
-    };
+  .factory('Auth', function(Database, Escape, $state) {
+
     var createUser = function(email, password, callback) {
       Database.ref.createUser({
           email: email,
@@ -114,8 +123,8 @@ angular.module('starter.services', [])
           }
         } else {
           console.log('Successfully created user account with uid:', userData.uid);
-          email = escape(email);
-          var userRef = new Firebase('https://yotempest.firebaseio.com/users');
+          email = Escape.escape(email);
+          var userRef = Database.usersRef;
           var uid = userData.uid;
           userRef.update({
             [email]: {
@@ -129,9 +138,6 @@ angular.module('starter.services', [])
     };
     
     var login = function(email, password, $state, callback) {
-      var escape = function(email) {
-        return encodeURIComponent(email).replace('.', '%2E');
-      };
       Database.ref.authWithPassword({
         email: email,
         password: password
@@ -139,7 +145,7 @@ angular.module('starter.services', [])
         if (error) {
           console.log('Login Failed! ' + error);
         } else {
-          email = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+          email = JSON.parse(window.localStorage[Database.session]).password.email;
           console.log('Current User: ' + email);
           console.log('Authenticated successfully with payload:' + authData);
           //redirects to messages
