@@ -22,7 +22,7 @@ Have you ever, on an uninspiring Sunday afternoon, gotten the urge hang out at y
 
 ## Usage
 
-> Some usage instructions
+The application is currently only fully supported on Android devices.  Apple devices can send messages, but cannot receive push notifications.
 
 ## Requirements
 
