@@ -1,6 +1,6 @@
 angular.module('starter.messageController', ['ionic', 'starter.services','firebase'])
 
-.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, Database, User, $timeout) {
+.controller('MessageController', function ($scope, $rootScope, $state, $firebaseObject, Message, $timeout) {
 
   $scope.sent = [];
 

@@ -92,7 +92,7 @@ angular.module('starter.services', [])
     };
   })
 
-  .factory('Auth', function($firebaseAuth, Database, $state) {
+  .factory('Auth', function(Database, $state) {
     var escape = function(email) {
       return encodeURIComponent(email).replace('.', '%2E');
     };
@@ -124,11 +124,10 @@ angular.module('starter.services', [])
             }
           });
           callback();
-          // $state.go('message'); // should already go to message by login function in callback
-        }
+        };
       });
     };
-
+    
     var login = function(email, password, $state, callback) {
       var escape = function(email) {
         return encodeURIComponent(email).replace('.', '%2E');
