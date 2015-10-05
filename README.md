@@ -54,7 +54,18 @@ Ionic Setup
 4. Initialize the platform by running ```ionic add ionic-platform-web-client``` from the root directory.
 5. Run ```ionic plugin add phonegap-plugin-push``` from the root directory.
 6. Run ```ionic io init``` from the root directory.
-7. Go to your [Ionic apps](https://apps.ionic.io) and navigate to the app you just created.  Get the app id from My Apps home page and the API keys under Settings->Keys in the app.  In the push-server/app.js file, insert your app id and API key in the appropriate places.
+7. Go to your [Ionic apps](https://apps.ionic.io) and navigate to the app you just created.  Get the app id from My Apps home page and the public and secret API keys under Settings->Keys in the app.
+8. In the .io-config.json file in the app directory, set dev_push to false to run the app on an Android device, or to true to run the app on the desktop.  Set the app id and API keys.  Then set up a [GCM key](http://docs.ionic.io/docs/push-android-setup).  The file should look like the following:
+```
+{
+  "dev_push": false,
+  "app_id": APPID,
+  "api_key": PUBLICKEY,
+  "privateKey": SECRET,
+  "gcm_key": GCMKEY
+}
+```
+9. Run ```ionic config build```.
 
 Firebase Setup
 
