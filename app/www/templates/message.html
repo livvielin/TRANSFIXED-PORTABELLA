@@ -11,8 +11,8 @@
     <!-- Display your friends list -->
     <ion-list class="card">
       <ion-item ng-repeat="friend in decodedFriends" ng-click='sendMessage(friend.email, $index)'>
-          {{ friend.username }}
-          <span ng-show="sent[$index]">Message Sent</span>
+          <span>{{ friend.username }}</span>
+          <span style="float:right; color: lightgray" ng-show="sent[$index]">Message Sent</span>
       </ion-item>
     </ion-list>
    
