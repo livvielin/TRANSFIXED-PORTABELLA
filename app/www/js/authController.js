@@ -78,10 +78,17 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
       onNotification: function(notification) {
         // Handle new push notifications here
         $log.info(notification);
-        //alert(notification.message + " says: " + notification.payload.title);
+        $log.info(JSON.stringify(notification));
         switch( notification.event ){
          case 'message':
-          alert(notification.message + " says: " + notification.payload.title);
+          //alert(notification.payload.title + " " + notification.message);
+          navigator.notification.confirm(notification.message, function(btn) {
+            if(btn === 1) {
+              //send yes response
+            }
+          },
+          notification.payload.title,
+          ['Yep', 'Nope']);
          break;
          }
         return true;
