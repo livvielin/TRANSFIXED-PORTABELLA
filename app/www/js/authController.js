@@ -1,7 +1,7 @@
 angular.module('starter.authController', ['ionic', 'starter.services'])
 
 
-.controller('AuthController', function ($scope, Auth, $rootScope, $location, $state, $log, $ionicUser, $ionicPush) {
+.controller('AuthController', function ($scope, Auth, $rootScope, $state, $log, $ionicUser, $ionicPush) {
   //form properties
   $scope.inputs = {
     email: null,
