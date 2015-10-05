@@ -4,6 +4,15 @@ angular.module('starter.messageController', ['ionic', 'starter.services','fireba
 
   $scope.sent = [];
 
+  // Stop input when max character length of 15 is reached
+  $scope.$watch('message', function(newVal, oldVal) {
+    if (newVal) {
+      if(newVal.length > 15) {
+        $scope.message = oldVal;
+      }
+    }
+  });
+
   $scope.sendMessage = function(friend, $index) {
     // Find friend token
     var token;
