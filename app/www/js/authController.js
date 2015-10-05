@@ -31,9 +31,10 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   //*** PUSH NOTIFICATION AUTH ***
-  //Handler for incoming device tokens. Allows us access so we can decide what to do with it (push to firebase?)
+  //Handler for incoming device tokens. Allows us access so we can push it to firebase
   $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
-    alert("Successfully registered token " + data.token);
+    //Enable alerts for debugging
+    // alert("Successfully registered token " + data.token);
     $log.info("Successfully registered token " + data.token);
     $log.info('Ionic Push: DATA = ' + JSON.stringify(data));
     $scope.token = data.token;
@@ -54,13 +55,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
 
     var user = $ionicUser.get();
     if(!user.user_id) {
-      //if the user doesn't have an id, generate a new one
-      //TODO: use facebook id's as the user_id?
+      //if the user doesn't have an id, generate a new one for the ionic account
+      //TODO: Use firebase ID to keep it consistent across the user
       user.user_id = $ionicUser.generateGUID();
     }
-    //TODO: INTERGRATE WITH LOGIN - Need details from other Auth here
     angular.extend(user, {
-      name: "PLACEHOLDER"
+      name: $scope.inputs.email
     });
 
     $ionicUser.identify(user).then(function(){
