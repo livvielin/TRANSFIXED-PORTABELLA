@@ -1,7 +1,7 @@
 angular.module('starter.authController', ['ionic', 'starter.services'])
 
 
-.controller('AuthController', function ($scope, Auth, $rootScope, $location, $state, $log, $ionicUser, $ionicPush) {
+.controller('AuthController', function ($scope, Auth, $rootScope, $state, $log, $ionicUser, $ionicPush, Escape, Database) {
   //form properties
   $scope.inputs = {
     email: null,
@@ -27,23 +27,22 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   $scope.checkUser = function() {
-    console.log('Current User: ' + JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+    console.log('Current User: ' + JSON.parse(window.localStorage[Database.session]).password.email);
   };
 
   //*** PUSH NOTIFICATION AUTH ***
-  //Handler for incoming device tokens. Allows us access so we can decide what to do with it (push to firebase?)
+  //Handler for incoming device tokens. Allows us access so we can push it to firebase
   $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
-    alert("Successfully registered token " + data.token);
-    $log.info('Ionic Push: Got token ', data.token, data.platform);
+    //Enable alerts for debugging
+    // alert("Successfully registered token " + data.token);
+    $log.info("Successfully registered token " + data.token);
+    $log.info('Ionic Push: DATA = ' + JSON.stringify(data));
     $scope.token = data.token;
+    $log.info($scope.token);
 
-    var escape = function(email) {
-      return encodeURIComponent(email).replace('.', '%2E');
-    };
-    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+    var currentUser = JSON.parse(window.localStorage[Database.session]).password.email;
     // put device token in database
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(escape(currentUser))
-    .child('deviceToken').set($scope.token);
+    var userRef = Database.usersRef.child(Escape.escape(currentUser)).child('deviceToken').set(data.token);
   });
 
   //Identifies a user with the Ionic User service for push notifications
@@ -52,13 +51,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
 
     var user = $ionicUser.get();
     if(!user.user_id) {
-      //if the user doesn't have an id, generate a new one
-      //TODO: use facebook id's as the user_id?
+      //if the user doesn't have an id, generate a new one for the ionic account
+      //TODO: Use firebase ID to keep it consistent across the user
       user.user_id = $ionicUser.generateGUID();
     }
-    //TODO: INTERGRATE WITH LOGIN - Need details from other Auth here
     angular.extend(user, {
-      name: "PLACEHOLDER"
+      name: $scope.inputs.email
     });
 
     $ionicUser.identify(user).then(function(){
@@ -80,6 +78,19 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
       onNotification: function(notification) {
         // Handle new push notifications here
         $log.info(notification);
+        $log.info(JSON.stringify(notification));
+        switch( notification.event ){
+         case 'message':
+          //alert(notification.payload.title + " " + notification.message);
+          navigator.notification.confirm(notification.message, function(btn) {
+            if(btn === 1) {
+              //send yes response
+            }
+          },
+          notification.payload.title,
+          ['Yep', 'Nope']);
+         break;
+         }
         return true;
       }
     });

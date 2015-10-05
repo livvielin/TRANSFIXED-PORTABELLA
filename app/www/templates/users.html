@@ -14,21 +14,11 @@
     <button class="button button-positive" ng-if="identified" ng-click="addFriend()">
       Add Friend: {{ username }}
     </button>
+    <button class="button button-assertive" ng-if="alreadyFriend" ng-click="removeFriend()">
+      Remove Friend: {{ username }}
+    </button>
     <button class="button button-calm" ng-if="added">Added {{ username }}</button>
-   
-    
-   <!-- May or may not want a list here -->
-    <!-- <ion-list>
-      <ion-item ng-repeat="friend in friends" class="item-avatar">
-        <img ng-src="/img/ionic.png">
-        <h2>{{ friend.name }}</h2>
-        <p>{{ friend.number }}</p>
-      </ion-item>
-    </ion-list> -->
-
-   <!-- This button isn't used -->
-   <!-- <button class="button button-icon ion-plus" ng-click="addFriend()">
-    </button>  -->
+    <button class="button button-dark" ng-if="removed">Removed {{ username }}</button>
 
   </ion-content>
     <ion-footer-bar class="bar-calm">
