@@ -1,7 +1,7 @@
 angular.module('starter.authController', ['ionic', 'starter.services'])
 
 
-.controller('AuthController', function ($scope, Auth, $rootScope, $state, $log, $ionicUser, $ionicPush) {
+.controller('AuthController', function ($scope, Auth, $rootScope, $state, $log, $ionicUser, $ionicPush, Escape, Database) {
   //form properties
   $scope.inputs = {
     email: null,
@@ -27,7 +27,7 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
   };
 
   $scope.checkUser = function() {
-    console.log('Current User: ' + JSON.parse(window.localStorage['firebase:session::yotempest']).password.email);
+    console.log('Current User: ' + JSON.parse(window.localStorage[Database.session]).password.email);
   };
 
   //*** PUSH NOTIFICATION AUTH ***
@@ -40,13 +40,9 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
     $scope.token = data.token;
     $log.info($scope.token);
 
-    var escape = function(email) {
-      return encodeURIComponent(email).replace('.', '%2E');
-    };
-    var currentUser = JSON.parse(window.localStorage['firebase:session::yotempest']).password.email;
+    var currentUser = JSON.parse(window.localStorage[Database.session]).password.email;
     // put device token in database
-    var userRef = new Firebase('https://yotempest.firebaseio.com/users').child(escape(currentUser))
-    .child('deviceToken').set(data.token);
+    var userRef = Database.usersRef.child(Escape.escape(currentUser)).child('deviceToken').set(data.token);
   });
 
   //Identifies a user with the Ionic User service for push notifications
