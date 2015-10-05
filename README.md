@@ -48,18 +48,18 @@ The application is currently only fully supported on Android devices.  Apple dev
 
 Ionic Setup
 1. Run ```npm install``` from the app directory.
-1. Run ```npm install``` from the the push-server directory.
-1. Set up an [Ionic account](https://apps.ionic.io/signup).
-1. Initialize the platform by running ```ionic add ionic-platform-web-client``` from the root directory.
-1. Run ```ionic plugin add phonegap-plugin-push``` from the root directory.
-1. Run ```ionic io init``` from the root directory.
-1. Go to your [Ionic apps](https://apps.ionic.io) and navigate to the app you just created.  Get the app id from My Apps home page and the API keys under Settings->Keys in the app.  In the push-server/app.js file, insert your app id and API key in the appropriate places.
+2. Run ```npm install``` from the the push-server directory.
+3. Set up an [Ionic account](https://apps.ionic.io/signup).
+4. Initialize the platform by running ```ionic add ionic-platform-web-client``` from the root directory.
+5. Run ```ionic plugin add phonegap-plugin-push``` from the root directory.
+6. Run ```ionic io init``` from the root directory.
+7. Go to your [Ionic apps](https://apps.ionic.io) and navigate to the app you just created.  Get the app id from My Apps home page and the API keys under Settings->Keys in the app.  In the push-server/app.js file, insert your app id and API key in the appropriate places.
 
 Firebase Setup
 1. Go to the [Firebase](https://www.firebase.com) website and sign up for an account.
-1. In the homepage, create an app.
-1. Click on Manage App and navigate to Login & Auth.  Check the box next to "Enable Email & Password Authentication."
-1. Put the app URL in the utils file.
+2. In the homepage, create an app.
+3. Click on Manage App and navigate to Login & Auth.  Check the box next to "Enable Email & Password Authentication."
+4. Put the app URL in the utils file.
 
 * Note: Installation instructions have changed since the start of this project.  This is a beta product in flux.
 
