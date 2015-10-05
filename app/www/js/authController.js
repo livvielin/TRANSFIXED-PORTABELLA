@@ -82,12 +82,12 @@ angular.module('starter.authController', ['ionic', 'starter.services'])
       onNotification: function(notification) {
         // Handle new push notifications here
         $log.info(notification);
+        //alert(notification.message + " says: " + notification.payload.title);
         switch( notification.event ){
          case 'message':
-          $rootScope.alert('notification:updated', notification);
+          alert(notification.message + " says: " + notification.payload.title);
          break;
          }
-
         return true;
       }
     });
