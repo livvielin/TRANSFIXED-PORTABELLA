@@ -22,7 +22,7 @@ Have you ever, on an uninspiring Sunday afternoon, gotten the urge hang out at y
 
 ## Usage
 
-> Some usage instructions
+The application is currently only fully supported on Android devices.  Apple devices can send messages, but cannot receive push notifications.
 
 ## Requirements
 
@@ -46,26 +46,35 @@ Have you ever, on an uninspiring Sunday afternoon, gotten the urge hang out at y
 
 ### Installing Dependencies
 
-From within the root directory:
+Ionic Setup
 
-npm install
+1. Run ```npm install``` from the app directory.
+2. Run ```npm install``` from the the push-server directory.
+3. Set up an [Ionic account](https://apps.ionic.io/signup).
+4. Initialize the platform by running ```ionic add ionic-platform-web-client``` from the root directory.
+5. Run ```ionic plugin add phonegap-plugin-push``` from the root directory.
+6. Run ```ionic io init``` from the root directory.
+7. Go to your [Ionic apps](https://apps.ionic.io) and navigate to the app you just created.  Get the app id from My Apps home page and the public and secret API keys under Settings->Keys in the app.
+8. In the .io-config.json file in the app directory, set dev_push to false to run the app on an Android device, or to true to run the app on the desktop.  Set the app id and API keys.  Then set up a [GCM key](http://docs.ionic.io/docs/push-android-setup).  The file should look like the following:
+```
+{
+  "dev_push": false,
+  "app_id": APPID,
+  "api_key": PUBLICKEY,
+  "privateKey": SECRET,
+  "gcm_key": GCMKEY
+}
+```
+9. Run ```ionic config build```.
 
-Push notifications:
+Firebase Setup
 
-**need ionic account
+1. Go to the [Firebase](https://www.firebase.com) website and sign up for an account.
+2. In the homepage, create an app.
+3. Click on Manage App and navigate to Login & Auth.  Check the box next to "Enable Email & Password Authentication."
+4. Put the app URL in the utils file.
 
-  ionic plugin add https://github.com/phonegap-build/PushPlugin.git
-
-  ionic add ionic-service-core
-
-  ionic add ngCordova
-
-  ionic add ionic-service-push
-
-  ionic io init
-
-  ionic config set dev_push true
-
+* Note: Installation instructions have changed since the start of this project.  This is a beta product in flux.
 
 ### Roadmap
 
