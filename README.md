@@ -47,6 +47,7 @@ The application is currently only fully supported on Android devices.  Apple dev
 ### Installing Dependencies
 
 Ionic Setup
+
 1. Run ```npm install``` from the app directory.
 2. Run ```npm install``` from the the push-server directory.
 3. Set up an [Ionic account](https://apps.ionic.io/signup).
@@ -56,6 +57,7 @@ Ionic Setup
 7. Go to your [Ionic apps](https://apps.ionic.io) and navigate to the app you just created.  Get the app id from My Apps home page and the API keys under Settings->Keys in the app.  In the push-server/app.js file, insert your app id and API key in the appropriate places.
 
 Firebase Setup
+
 1. Go to the [Firebase](https://www.firebase.com) website and sign up for an account.
 2. In the homepage, create an app.
 3. Click on Manage App and navigate to Login & Auth.  Check the box next to "Enable Email & Password Authentication."
